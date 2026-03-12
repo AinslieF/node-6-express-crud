@@ -37,9 +37,16 @@ async function getAllRecipes() {
 // 2. getOneRecipe(index)
 
 // gets one recipe based on index
+// creates a function that gets one recipe using its index
 async function getOneRecipe(index) {
+
+  // reads the recipes-data.json file
   const data = await fs.readFile("recipes-data.json", "utf8");
+
+  // converts the JSON text into a JavaScript object
   const parsedRecipes = JSON.parse(data);
+
+  // returns the recipe at the given index
   return parsedRecipes[index];
 }
 
@@ -76,9 +83,16 @@ app.get("/get-all-recipes", async (req, res) => {
 
 // 2. GET /get-one-recipe/:index
 
+// creates an endpoint that returns one recipe by its index
 app.get("/get-one-recipe/:index", async (req, res) => {
+
+  // gets the index value from the URL parameter
   const index = req.params.index;
+
+  // calls the helper function to get the recipe
   const recipe = await getOneRecipe(index);
+
+  // sends the recipe back as JSON
   res.json(recipe);
 });
 
